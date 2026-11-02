@@ -1,0 +1,56 @@
+[
+  {
+    "title": "Campus Tech Meetup",
+    "date": "2026-11-12",
+    "seats": 3,
+    "online": false,
+    "venue": "Seminar Hall",
+    "time": "10:00 AM",
+    "category": "Technical"
+  },
+  {
+    "title": "Python Coding Challenge",
+    "date": "2026-11-18",
+    "seats": 0,
+    "online": false,
+    "venue": "Computer Lab",
+    "time": "11:00 AM",
+    "category": "Competition"
+  },
+  {
+    "title": "AI and Machine Learning Workshop",
+    "date": "2026-11-24",
+    "seats": 18,
+    "online": true,
+    "venue": "Online",
+    "time": "2:00 PM",
+    "category": "Workshop"
+  },
+  {
+    "title": "Campus Sports Meet",
+    "date": "2026-12-02",
+    "seats": 42,
+    "online": false,
+    "venue": "College Ground",
+    "time": "8:00 AM",
+    "category": "Sports"
+  },
+  {
+    "title": "Cultural Evening",
+    "date": "2026-12-10",
+    "seats": 4,
+    "online": false,
+    "venue": "Auditorium",
+    "time": "5:00 PM",
+    "category": "Cultural"
+  },
+  {
+    "title": "Linux Administration Session",
+    "date": "2026-12-15",
+    "seats": 12,
+    "online": true,
+    "venue": "Online",
+    "time": "3:00 PM",
+    "category": "Workshop"
+  }
+]

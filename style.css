@@ -1,0 +1,735 @@
+/* Campus Event Board — components, grid and responsive layout */
+
+/* B2: CSS Grid page header. Navigation is a nested header grid area. */
+#site-header {
+  grid-area: site-header;
+  display: grid;
+  grid-template-areas: "brand actions" "navigation navigation";
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: .75rem 1.25rem;
+  padding: .7rem clamp(1rem, 4vw, 3.5rem);
+  color: #fff;
+  background: var(--brand);
+  border-bottom: .25rem solid var(--accent);
+  box-shadow: 0 .25rem .875rem rgb(11 34 51 / 16%);
+}
+
+.brand {
+  grid-area: brand;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  min-width: 0;
+  color: #fff;
+  text-decoration: none;
+}
+
+.brand img {
+  flex: 0 0 auto;
+  width: 3.3rem;
+  height: 3.3rem;
+  object-fit: contain;
+  padding: .12rem;
+  background: #fff;
+  border: 2px solid rgb(255 255 255 / 75%);
+  border-radius: 50%;
+}
+
+.brand-copy {
+  display: grid;
+  gap: .1rem;
+}
+
+.brand-copy strong {
+  color: #fff;
+  font-size: 1.05rem;
+  line-height: 1.2;
+}
+
+.brand-copy small {
+  color: #dce8f0;
+  font-size: .75rem;
+  line-height: 1.3;
+}
+
+.header-actions {
+  grid-area: actions;
+  display: flex;
+  align-items: center;
+  gap: .55rem;
+}
+
+#main-navigation {
+  grid-area: navigation;
+  display: none;
+}
+
+#menu-toggle:checked~#main-navigation,
+#site-header:has(#menu-toggle:checked) #main-navigation {
+  display: block;
+}
+
+#main-navigation ul,
+footer nav ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: .35rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+#main-navigation a {
+  display: block;
+  padding: .62rem .85rem;
+  color: #fff;
+  border: 1px solid transparent;
+  border-radius: .45rem;
+  font-size: .9rem;
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color .18s ease, color .18s ease;
+}
+
+#main-navigation a:hover,
+#main-navigation a:focus-visible {
+  color: var(--brand-dark);
+  background: var(--accent);
+}
+
+.toggle-checkbox {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.toggle-checkbox:focus-visible+.theme-toggle,
+.toggle-checkbox:focus-visible+.menu-toggle {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.theme-toggle {
+  display: inline-block;
+  padding: .55rem .8rem;
+  color: #fff;
+  background: #23465e;
+  border: 1px solid #7893a5;
+  border-radius: 999px;
+  font-size: .8rem;
+  font-weight: 700;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: #315c76;
+}
+
+.theme-toggle .light-label {
+  display: none;
+}
+
+.theme-toggle .dark-label {
+  display: inline;
+}
+
+.menu-toggle {
+  display: inline-flex;
+  width: 2.65rem;
+  height: 2.65rem;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: .25rem;
+  padding: .55rem;
+  background: transparent;
+  border: 1px solid #7893a5;
+  border-radius: .45rem;
+  cursor: pointer;
+}
+
+.menu-toggle span {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: #fff;
+  border-radius: 2px;
+}
+
+/* Lab 4 selector: mark HTTPS external links. */
+a[href^="https"]::after {
+  content: " ↗";
+  font-size: .8em;
+}
+
+/* B7: cover image and clamp() heading provide responsive hero styling. */
+.hero {
+  display: flex;
+  min-height: 19rem;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(2.5rem, 5vw, 4rem) 1.25rem;
+  text-align: center;
+  color: #fff;
+  background-image:
+    linear-gradient(120deg, rgb(8 25 37 / 60%), rgb(18 48 71 / 88%)),
+    url("hero-background.jpg");
+  background-position: top 45%;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.hero .eyebrow {
+  margin: 0 0 .4rem;
+  color: var(--accent);
+  font-size: .85rem;
+  font-weight: 700;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.hero h1 {
+  max-width: 65ch;
+  margin: 0 auto .7rem;
+  color: #fff;
+}
+
+.hero p {
+  margin: 0 auto;
+  color: #e4edf3;
+}
+
+/* FAQ disclosure */
+details {
+  width: min(90%, var(--content-width));
+  margin: 1.5rem auto;
+  padding: 1rem 1.2rem;
+  background: var(--card);
+  border: 1px solid var(--border-color);
+  border-radius: .6rem;
+}
+
+details summary {
+  color: var(--brand);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+details p {
+  margin-bottom: 0;
+}
+
+/* B3: auto-fit + minmax reflows the cards without a media query. */
+.events {
+  width: min(90%, var(--content-width));
+  margin: 2rem auto;
+  padding: var(--section-space);
+  background: var(--card);
+  border: 1px solid var(--border-color);
+  border-top: .25rem solid var(--accent);
+  border-radius: .75rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
+}
+
+.section-title {
+  margin: 0 0 1rem;
+  color: var(--brand);
+}
+
+.events ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: 1rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.events li {
+  min-width: 0;
+}
+
+.events article {
+  height: 100%;
+  margin: 0;
+  padding: 1rem;
+  background: var(--brand-light);
+  border: 1px solid #cadce7;
+  border-radius: .55rem;
+  box-shadow: var(--shadow);
+}
+
+.events article h3 {
+  margin: 0 0 .5rem;
+  color: var(--brand);
+  font-size: 1.08rem;
+}
+
+.events article p {
+  margin: .25rem 0;
+  font-size: .92rem;
+}
+
+.events article p:first-of-type {
+  font-weight: 700;
+}
+
+.events article p:not(:first-of-type) {
+  color: var(--muted);
+}
+/* =====================================================
+   LAB ASSIGNMENT 6 — RSVP BUTTONS AND INTERACTIONS
+   ===================================================== */
+
+/* RSVP Button */
+.rsvp-button {
+    display: inline-block;
+    margin-top: 1rem;
+    padding: .65rem 1.2rem;
+
+    color: #ffffff;
+    background: var(--brand);
+
+    border: none;
+    border-radius: .4rem;
+
+    font-size: .9rem;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    transition: background-color .2s ease,
+                transform .2s ease;
+}
+
+/* Button Hover Effect */
+.rsvp-button:hover:not(:disabled) {
+    background: var(--brand-dark);
+    transform: translateY(-2px);
+}
+
+/* Keyboard Focus */
+.rsvp-button:focus-visible {
+    outline: 3px solid var(--accent);
+    outline-offset: 3px;
+}
+
+/* Disabled RSVP Button */
+.rsvp-button:disabled {
+    background: #777777;
+    color: #ffffff;
+    cursor: not-allowed;
+    opacity: .75;
+}
+
+/* Event Card Interaction */
+.event-card.selected {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* Full Event */
+.event-card.full {
+    border-left: .3rem solid #c0392b;
+}
+
+/* Seat Status */
+.seat-status {
+    font-weight: 700;
+    color: #176b3a;
+}
+
+.event-full {
+    color: #c0392b;
+}
+
+/* Search Box */
+#event-search {
+    width: 100%;
+    margin: .35rem 0 1rem;
+    padding: .7rem .75rem;
+
+    color: var(--ink);
+    background: var(--card);
+
+    border: 1px solid var(--border-color);
+    border-radius: .4rem;
+
+    font: inherit;
+}
+
+/* Search and Fetch Messages */
+#event-status {
+    margin: 0 0 .75rem;
+    color: var(--muted);
+}
+
+.empty-state {
+    padding: 1rem;
+    color: var(--muted);
+}
+
+/* Form Feedback */
+#form-message {
+    margin: .5rem 0 0;
+    font-weight: 700;
+}
+
+#form-message.form-error {
+    color: #b42318;
+}
+
+/* Mobile Navigation */
+#main-navigation.is-open {
+    display: block;
+}
+
+
+/* Lab 4 adjacent and general sibling selector examples. */
+.section-title+p {
+  margin-top: .5rem;
+}
+
+.section-title~p {
+  max-width: 65ch;
+}
+
+/* Responsive schedule table */
+.table-wrapper {
+  max-width: 100%;
+  margin-top: 1rem;
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+caption {
+  padding: .5rem;
+  font-weight: 700;
+  text-align: left;
+}
+
+th,
+td {
+  padding: .7rem;
+  border: 1px solid var(--border-color);
+}
+
+thead {
+  color: #fff;
+  background: var(--brand);
+}
+
+tbody tr:nth-child(even) {
+  background: var(--brand-light);
+}
+
+/* Important information panel */
+#important-info {
+  width: min(90%, var(--content-width));
+  margin: 1.5rem auto;
+  padding: 1rem 1.25rem;
+  background: #fff8e7;
+  border-left: .25rem solid var(--accent);
+  border-radius: .45rem;
+}
+
+#important-info h2 {
+  margin: 0 0 .65rem;
+  color: var(--brand);
+  font-size: 1.2rem;
+}
+
+#important-info ul {
+  margin: 0;
+  padding-left: 1.25rem;
+}
+
+mark {
+  padding: .1rem .2rem;
+  color: inherit;
+  background: transparent;
+}
+
+/* Event suggestion form */
+#submit {
+  width: min(90%, var(--content-width));
+  margin: 2rem auto;
+  padding: var(--section-space);
+  background: var(--card);
+  border: 1px solid var(--border-color);
+  border-radius: .75rem;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 5%);
+}
+
+#submit h2 {
+  margin: 0 0 .4rem;
+  color: var(--brand);
+}
+
+.form-intro {
+  max-width: 65ch;
+  margin: 0 0 1.25rem;
+}
+
+#submit form {
+  display: grid;
+  gap: .7rem;
+}
+
+#submit label {
+  font-size: .92rem;
+  font-weight: 700;
+}
+
+#submit input,
+#submit select,
+#submit textarea {
+  width: 100%;
+  padding: .7rem .75rem;
+  color: var(--ink);
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: .4rem;
+  font: inherit;
+}
+
+#submit input:focus,
+#submit select:focus,
+#submit textarea:focus {
+  border-color: var(--brand);
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+#submit input::placeholder,
+#submit textarea::placeholder {
+  color: #778899;
+  opacity: 1;
+}
+
+#submit textarea {
+  min-height: 5rem;
+  resize: vertical;
+}
+
+#submit button[type="submit"] {
+  justify-self: start;
+  margin-top: .5rem;
+  padding: .8rem 1.35rem;
+  color: #fff;
+  background: var(--brand);
+  border: 0;
+  border-radius: .45rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+#submit button[type="submit"]:hover {
+  background: var(--brand-dark);
+}
+
+/* A9: display:none removes the example from layout. */
+.visually-removed-example {
+  display: none;
+}
+
+/* Footer */
+footer {
+  grid-area: site-footer;
+  margin-top: 3rem;
+  padding: 2rem 1rem;
+  text-align: center;
+  color: #d5e0e8;
+  background: var(--brand-dark);
+}
+
+footer nav ul {
+  justify-content: center;
+  gap: .75rem 1.2rem;
+  margin-bottom: 1rem;
+}
+
+footer nav a {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer>a {
+  color: var(--accent);
+}
+
+footer address {
+  margin-top: .75rem;
+  font-style: normal;
+}
+
+footer p {
+  margin: .75rem auto 0;
+  font-size: .9rem;
+}
+
+/* B5: phone is the base layout; desktop adds a supporting sidebar. */
+#main-content {
+  grid-area: page-main;
+  display: grid;
+  grid-template-areas: "hero" "faq" "events" "info" "submit";
+  grid-template-columns: minmax(0, 1fr);
+  min-width: 0;
+}
+
+#main-content>.hero {
+  grid-area: hero;
+}
+
+#main-content>details {
+  grid-area: faq;
+}
+
+#main-content>.events {
+  grid-area: events;
+}
+
+#main-content>#important-info {
+  grid-area: info;
+}
+
+#main-content>#submit {
+  grid-area: submit;
+}
+
+/* B6: checkbox-driven mobile navigation; no JavaScript is required. */
+@media (max-width: 48rem) {
+  #main-navigation ul {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  #main-navigation a {
+    padding: .7rem .8rem;
+  }
+
+  .brand-copy small {
+    max-width: 14rem;
+  }
+
+  .theme-toggle {
+    padding: .5rem .65rem;
+    font-size: .75rem;
+  }
+}
+
+/* B5: tablet breakpoint. */
+@media (min-width: 40rem) {
+  #main-content {
+    grid-template-areas: "hero hero" "faq faq" "events events" "info info" "submit submit";
+  }
+
+  .hero {
+    padding-block: 3rem;
+  }
+}
+
+/* B5: desktop breakpoint adds a two-column events/information layout. */
+@media (min-width: 64rem) {
+  #main-content {
+    grid-template-columns: minmax(0, 2fr) minmax(15rem, 1fr);
+    grid-template-areas: "hero hero" "faq faq" "events info" "submit submit";
+    align-items: start;
+  }
+
+  .events {
+    width: min(calc(100% - 2rem), var(--content-width));
+  }
+
+  #important-info {
+    width: calc(100% - 2rem);
+    margin-top: 2rem;
+  }
+
+  #main-navigation {
+    display: block;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+}
+
+
+/* Assignment 6: search field, fetched event states and interaction feedback. */
+#event-search {
+  width: 100%;
+  margin: .35rem 0 1rem;
+  padding: .7rem .75rem;
+  color: var(--ink);
+  background: var(--card);
+  border: 1px solid var(--border-color);
+  border-radius: .4rem;
+  font: inherit;
+}
+
+#event-status {
+  margin: 0 0 .75rem;
+  color: var(--muted);
+}
+
+.event-card.full {
+  border-left: .3rem solid #c0392b;
+}
+
+.seat-status {
+  font-weight: 700;
+  color: #176b3a;
+}
+
+.event-full {
+  color: #c0392b;
+}
+
+.event-card.selected {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.empty-state {
+  padding: 1rem;
+  color: var(--muted);
+}
+
+#form-message {
+  margin: .5rem 0 0;
+  font-weight: 700;
+}
+
+#form-message.form-error {
+  color: #b42318;
+}
+
+#main-navigation.is-open {
+  display: block;
+}
+
+@media (min-width: 64rem) {
+  #main-navigation {
+    display: block;
+  }
+
+  .menu-toggle {
+    display: none;
+  }
+}

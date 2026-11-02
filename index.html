@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Campus Event Board | IIIT Vadodara Events</title>
+    <meta name="description"
+        content="Explore upcoming campus events, festivals, workshops, and competitions at IIIT Vadodara.">
+    <link rel="icon" href="favicon.png">
+    <link rel="stylesheet" href="base.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="theme-dark.css">
+    <meta property="og:title" content="Campus Event Board | IIIT Vadodara Events">
+    <meta property="og:description"
+        content="Explore upcoming campus events, festivals, workshops, and competitions at IIIT Vadodara.">
+    <meta property="og:image" content="og-image.png">
+
+</head>
+
+<body>
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
+    <header id="site-header">
+        <a class="brand" href="#main-content" aria-label="Campus Event Board home">
+            <img src="image.png" width="56" height="56" alt="IIIT Vadodara logo">
+            <span class="brand-copy">
+                <strong>Campus Event Board</strong>
+                <small>IIIT Vadodara | Campus life, all in one place</small>
+            </span>
+        </a>
+
+        <div class="header-actions">
+            <input type="checkbox" id="dark-mode" class="toggle-checkbox" aria-label="Enable dark mode">
+            <label class="theme-toggle" for="dark-mode"><span class="light-label">☀️ Light mode</span><span class="dark-label">🌙 Dark mode</span></label>
+            <button type="button" id="menu-button" class="menu-toggle" aria-controls="main-navigation" aria-expanded="false" aria-label="Open navigation menu"><span></span><span></span><span></span></button>
+        </div>
+
+        <nav id="main-navigation" aria-label="Main navigation" class="nav-links">
+            <ul>
+                <li><a href="#upcoming-events">Events</a></li>
+                <li><a href="#important-info">Important Info</a></li>
+                <li><a href="#submit">Submit an Event</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main id="main-content">
+        <section class="hero" aria-labelledby="welcome-heading">
+            <p class="eyebrow">IIIT Vadodara</p>
+            <h1 id="welcome-heading">Welcome to our Campus Event Board</h1>
+            <p>Here you can find information about upcoming college events.</p>
+        </section>
+
+        <details>
+            <summary>Is there an entry fee for sports and technical fests?</summary>
+            <p>No, all campus-hosted events are free of charge for enrolled college students.</p>
+        </details>
+
+        <section id="upcoming-events" class="events" aria-labelledby="events-heading">
+            <h2 class="section-title" id="events-heading">Upcoming Events</h2>
+            <label for="event-search">Search events</label>
+            <input type="search" id="event-search" placeholder="Search by event title or venue..." autocomplete="off">
+            <p id="event-status" role="status" aria-live="polite">Loading events...</p>
+            <ul id="event-list" class="event-list" aria-label="Upcoming campus events"></ul>
+            <h3>Event Schedule</h3>
+            <div class="table-wrapper">
+                <table>
+                    <caption>Campus events, dates, venues, and start times</caption>
+                    <thead>
+                        <tr><th scope="col">Event</th><th scope="col">Date</th><th scope="col">Venue</th><th scope="col">Time</th></tr>
+                    </thead>
+                    <tbody id="event-table-body"></tbody>
+                </table>
+            </div>
+        </section>
+
+        <aside id="important-info" aria-labelledby="info-heading">
+            <h2 id="info-heading"><mark>Important Information</mark></h2>
+            <ul>
+                <li>Students must carry their college ID cards.</li>
+                <li>Registration is required for competitions.</li>
+                <li>Students should reach the venue 15 minutes early.</li>
+            </ul>
+        </aside>
+
+
+
+        <section id="submit" aria-labelledby="submit-heading">
+            <h2 id="submit-heading">Submit an Event</h2>
+            <p class="form-intro">Use this form to suggest a campus event for the board.</p>
+            <form id="event-form" method="post" action="#" novalidate>
+                <label for="event-title">Event title:</label>
+                <input type="text" id="event-title" name="event-title" minlength="2" required>
+
+                <label for="event-category">Event category:</label>
+                <select id="event-category" name="event-category" required>
+                    <option value="">Choose a category</option>
+                    <option value="technical">Technical</option>
+                    <option value="cultural">Cultural</option>
+                    <option value="sports">Sports</option>
+                    <option value="workshop">Workshop</option>
+                    <option value="other">Other</option>
+                </select>
+
+                <label for="event-date">Event date:</label>
+                <input type="date" id="event-date" name="event-date" required>
+
+                <label for="event-time">Event time:</label>
+                <input type="text" id="event-time" name="event-time" placeholder="e.g. 10:00 AM" required>
+
+                <label for="event-venue">Venue:</label>
+                <input type="text" id="event-venue" name="event-venue" required>
+
+                <label for="organizer-email">Organizer email:</label>
+                <input type="email" id="organizer-email" name="organizer-email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}" title="Enter a valid email address, such as name@example.com" required>
+
+                <label for="event-description">Event description:</label>
+                <textarea id="event-description" name="event-description" rows="4" required></textarea>
+
+                <button type="submit">Submit Event</button>
+                <p id="form-message" role="status" aria-live="polite"></p>
+            </form>
+        </section>
+
+
+    </main>
+
+    <footer>
+        <nav aria-label="Footer navigation">
+            <ul>
+                <li><a href="#upcoming-events">Events</a></li>
+                <li><a href="#important-info">Important Info</a></li>
+                <li><a href="#submit">Submit an Event</a></li>
+            </ul>
+        </nav>
+
+
+
+        <a href="https://iiitvadodara.ac.in/#">College Website</a>
+
+
+        <address>IIIT Vadodara · Campus Event Board</address>
+        <p>© 2026 Campus Event Board</p>
+    </footer>
+    <script src="script.js" defer></script>
+    </body>
+
+</html>
