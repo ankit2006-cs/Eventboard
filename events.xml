@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<events>
+  <event id="1">
+    <title>Campus Tech Meetup</title>
+    <date>2026-11-12</date>
+    <seats>3</seats>
+    <free>true</free>
+    <online>false</online>
+    <venue>Seminar Hall</venue>
+    <time>10:00 AM</time>
+    <category>Technical</category>
+  </event>
+  <event id="2">
+    <title>Python Coding Challenge</title>
+    <date>2026-11-18</date>
+    <seats>0</seats>
+    <free>true</free>
+    <online>false</online>
+    <venue>Computer Lab</venue>
+    <time>11:00 AM</time>
+    <category>Competition</category>
+  </event>
+  <event id="3">
+    <title>AI and Machine Learning Workshop</title>
+    <date>2026-11-24</date>
+    <seats>18</seats>
+    <free>true</free>
+    <online>true</online>
+    <venue>Online</venue>
+    <time>2:00 PM</time>
+    <category>Workshop</category>
+  </event>
+  <event id="4">
+    <title>Campus Sports Meet</title>
+    <date>2026-12-02</date>
+    <seats>42</seats>
+    <free>true</free>
+    <online>false</online>
+    <venue>College Ground</venue>
+    <time>8:00 AM</time>
+    <category>Sports</category>
+  </event>
+</events>

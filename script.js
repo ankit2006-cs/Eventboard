@@ -1,21 +1,9 @@
-/* =====================================================
-   CAMPUS EVENT BOARD — LAB ASSIGNMENT 6
-   JavaScript, DOM, Events, Fetch API and Validation
-   ===================================================== */
+const pageTitle = "Campus Event Board"; 
+const defaultSeats = 10;                
+const eventsAreOnline = false;          
 
 
-/* A2: Variables and data types */
-
-// const is used by default.
-const pageTitle = "Campus Event Board"; // String
-const defaultSeats = 10;                // Number
-const eventsAreOnline = false;          // Boolean
-
-// let is used because this value changes after fetching.
 let allEvents = [];
-
-
-/* B1: Select HTML elements using DOM selectors */
 
 const eventContainer = document.querySelector("#event-list");
 const eventSearch = document.querySelector("#event-search");
@@ -27,13 +15,13 @@ const menuButton = document.getElementById("menu-button");
 const navigation = document.querySelector("#main-navigation");
 
 const eventTableBody = document.querySelector("#event-table-body");
+const xmlTitleStatus = document.querySelector("#xml-title-status");
+const dataSizeStatus = document.querySelector("#data-size-status");
 
 const eventForm = document.querySelector("#event-form");
 const eventTitleInput = document.querySelector("#event-title");
 const formMessage = document.querySelector("#form-message");
 
-
-/* A4: Control flow using if / else */
 
 function getSeatLabel(eventItem) {
 
@@ -50,8 +38,6 @@ function getSeatLabel(eventItem) {
 }
 
 
-/* A6: Function with parameter and return */
-
 function formatEvent(eventItem) {
 
     const formattedDate = new Date(
@@ -66,8 +52,6 @@ function formatEvent(eventItem) {
 
 }
 
-
-/* B2 and B3: Render event cards dynamically */
 
 function renderEvents(eventsToRender) {
 
@@ -103,6 +87,7 @@ function renderEvents(eventsToRender) {
         const timeLine = document.createElement("p");
         const modeLine = document.createElement("p");
         const seatsLine = document.createElement("p");
+        const feeLine = document.createElement("p");
         const status = document.createElement("p");
 
         // Create RSVP button.
@@ -232,6 +217,73 @@ function filterEvents(searchText) {
 }
 
 
+/* A2-A5: JSON is an array of event objects; dates are ISO strings.
+   B2: Dot/index access reads one value from the parsed JSON array.
+   B3: stringify() and parse() demonstrate object -> text -> object.
+   B5: TextEncoder reports actual UTF-8 byte sizes for both files. */
+function inspectJsonData(events) {
+    console.log("B2 - First event title:", events[0].title);
+    console.log("B2 - Last event seats:", events[events.length - 1].seats);
+
+    const jsonText = JSON.stringify(events, null, 2);
+    const parsedAgain = JSON.parse(jsonText);
+    console.log("B3 - JSON.stringify output:", jsonText);
+    console.log("B3 - Round-trip successful:", JSON.stringify(parsedAgain) === JSON.stringify(events));
+
+    return jsonText;
+}
+
+/* B4: Fetch XML as text, parse it with DOMParser, and read title elements. */
+async function loadXmlTitle() {
+    try {
+        const response = await fetch("events.xml");
+        if (!response.ok) throw new Error(`Could not load events.xml (HTTP ${response.status})`);
+
+        const xmlText = await response.text();
+        const xmlDocument = new DOMParser().parseFromString(xmlText, "application/xml");
+
+        if (xmlDocument.querySelector("parsererror")) {
+            throw new Error("The XML document is not well-formed.");
+        }
+
+        const titles = xmlDocument.getElementsByTagName("title");
+        if (titles.length === 0) throw new Error("No <title> element was found.");
+
+        xmlTitleStatus.textContent = `First event title from XML: ${titles[0].textContent}`;
+        console.log("B4 - First XML title:", titles[0].textContent);
+    } catch (error) {
+        xmlTitleStatus.textContent = "XML could not be read. Run the project with Live Server.";
+        console.error("XML loading error:", error);
+    }
+}
+
+/* B5: Compare UTF-8 byte sizes of the JSON and XML source files. */
+async function compareDataFileSizes() {
+    try {
+        const [jsonResponse, xmlResponse] = await Promise.all([
+            fetch("events.json"),
+            fetch("events.xml")
+        ]);
+        if (!jsonResponse.ok || !xmlResponse.ok) throw new Error("Could not read both data files.");
+
+        const [jsonText, xmlText] = await Promise.all([
+            jsonResponse.text(),
+            xmlResponse.text()
+        ]);
+        const encoder = new TextEncoder();
+        const jsonBytes = encoder.encode(jsonText).length;
+        const xmlBytes = encoder.encode(xmlText).length;
+
+        const larger = xmlBytes > jsonBytes ? "XML" : (jsonBytes > xmlBytes ? "JSON" : "Both files are equal in size");
+        dataSizeStatus.textContent =
+            `File sizes — events.json: ${jsonBytes} bytes; events.xml: ${xmlBytes} bytes. Larger: ${larger}.`;
+        console.log("B5 - UTF-8 file sizes:", { jsonBytes, xmlBytes, larger });
+    } catch (error) {
+        dataSizeStatus.textContent = "File sizes could not be compared.";
+        console.error("File-size comparison error:", error);
+    }
+}
+
 /* B7: Fetch JSON data using async / await */
 
 async function loadEvents() {
@@ -255,19 +307,34 @@ async function loadEvents() {
         const data = await response.json();
 
         if (!Array.isArray(data)) {
+            throw new Error("Invalid events data: expected an array.");
+        }
 
-            throw new Error("Invalid events data.");
-
+        // C2: Basic schema validation before the page uses the event records.
+        const validEvents = data.every(eventItem =>
+            Number.isInteger(eventItem.id) &&
+            typeof eventItem.title === "string" && eventItem.title.trim() !== "" &&
+            /^\d{4}-\d{2}-\d{2}$/.test(eventItem.date) &&
+            Number.isInteger(eventItem.seats) && eventItem.seats >= 0 &&
+            typeof eventItem.free === "boolean"
+        );
+        if (!validEvents) {
+            throw new Error("Invalid event record: check id, title, ISO date, seats and free.");
         }
 
         // Store fetched event objects.
         allEvents = data;
+
+        // B2 and B3: demonstrate indexed access and JSON round-trip.
+        inspectJsonData(allEvents);
 
         // Success state.
         eventStatus.textContent =
             `Showing ${allEvents.length} events.`;
 
         renderEvents(allEvents);
+        loadXmlTitle();
+        compareDataFileSizes();
 
         console.log(
             `${pageTitle}: loaded ${allEvents.length} events.`,

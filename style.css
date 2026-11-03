@@ -287,111 +287,110 @@ details p {
 .events article p:not(:first-of-type) {
   color: var(--muted);
 }
-/* =====================================================
-   LAB ASSIGNMENT 6 — RSVP BUTTONS AND INTERACTIONS
-   ===================================================== */
+
+/* LAB ASSIGNMENT 6 — RSVP BUTTONS AND INTERACTIONS */
 
 /* RSVP Button */
 .rsvp-button {
-    display: inline-block;
-    margin-top: 1rem;
-    padding: .65rem 1.2rem;
+  display: inline-block;
+  margin-top: 1rem;
+  padding: .65rem 1.2rem;
 
-    color: #ffffff;
-    background: var(--brand);
+  color: #ffffff;
+  background: var(--brand);
 
-    border: none;
-    border-radius: .4rem;
+  border: none;
+  border-radius: .4rem;
 
-    font-size: .9rem;
-    font-weight: 700;
+  font-size: .9rem;
+  font-weight: 700;
 
-    cursor: pointer;
+  cursor: pointer;
 
-    transition: background-color .2s ease,
-                transform .2s ease;
+  transition: background-color .2s ease,
+    transform .2s ease;
 }
 
 /* Button Hover Effect */
 .rsvp-button:hover:not(:disabled) {
-    background: var(--brand-dark);
-    transform: translateY(-2px);
+  background: var(--brand-dark);
+  transform: translateY(-2px);
 }
 
 /* Keyboard Focus */
 .rsvp-button:focus-visible {
-    outline: 3px solid var(--accent);
-    outline-offset: 3px;
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
 }
 
 /* Disabled RSVP Button */
 .rsvp-button:disabled {
-    background: #777777;
-    color: #ffffff;
-    cursor: not-allowed;
-    opacity: .75;
+  background: #777777;
+  color: #ffffff;
+  cursor: not-allowed;
+  opacity: .75;
 }
 
 /* Event Card Interaction */
 .event-card.selected {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* Full Event */
 .event-card.full {
-    border-left: .3rem solid #c0392b;
+  border-left: .3rem solid #c0392b;
 }
 
 /* Seat Status */
 .seat-status {
-    font-weight: 700;
-    color: #176b3a;
+  font-weight: 700;
+  color: #176b3a;
 }
 
 .event-full {
-    color: #c0392b;
+  color: #c0392b;
 }
 
 /* Search Box */
 #event-search {
-    width: 100%;
-    margin: .35rem 0 1rem;
-    padding: .7rem .75rem;
+  width: 100%;
+  margin: .35rem 0 1rem;
+  padding: .7rem .75rem;
 
-    color: var(--ink);
-    background: var(--card);
+  color: var(--ink);
+  background: var(--card);
 
-    border: 1px solid var(--border-color);
-    border-radius: .4rem;
+  border: 1px solid var(--border-color);
+  border-radius: .4rem;
 
-    font: inherit;
+  font: inherit;
 }
 
 /* Search and Fetch Messages */
 #event-status {
-    margin: 0 0 .75rem;
-    color: var(--muted);
+  margin: 0 0 .75rem;
+  color: var(--muted);
 }
 
 .empty-state {
-    padding: 1rem;
-    color: var(--muted);
+  padding: 1rem;
+  color: var(--muted);
 }
 
 /* Form Feedback */
 #form-message {
-    margin: .5rem 0 0;
-    font-weight: 700;
+  margin: .5rem 0 0;
+  font-weight: 700;
 }
 
 #form-message.form-error {
-    color: #b42318;
+  color: #b42318;
 }
 
 /* Mobile Navigation */
 #main-navigation.is-open {
-    display: block;
+  display: block;
 }
 
 
@@ -732,4 +731,24 @@ footer p {
   .menu-toggle {
     display: none;
   }
+}
+
+/* Assignment 7: JSON/XML result panels */
+.xml-preview,
+.data-size-status {
+  margin: 1.25rem 0;
+  padding: 1rem 1.15rem;
+  border: 1px solid var(--border-color, #cbd5e1);
+  border-radius: 14px;
+  background: var(--card-background, rgba(127, 127, 127, 0.08));
+}
+
+.xml-preview h3 {
+  margin-top: 0;
+}
+
+#xml-title-status,
+#data-size-status {
+  overflow-wrap: anywhere;
+  line-height: 1.6;
 }

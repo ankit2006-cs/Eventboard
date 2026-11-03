@@ -1,7 +1,9 @@
 /* Shared design system and base styles — Lab 5 A2–A6, A9 */
 :root {
-  --brand: #123047;                 /* HEX */
-  --brand-dark: hsl(204 66% 12%);   /* HSL */
+  --brand: #123047;
+  /* HEX */
+  --brand-dark: hsl(204 66% 12%);
+  /* HSL */
   --accent: hsl(40 86% 62%);
   --brand-light: #eaf2f7;
   --ink: #243447;
@@ -9,15 +11,23 @@
   --card: #fff;
   --border-color: #d5dee7;
   --muted: #526476;
-  --shadow: 0 2px 8px rgb(0 0 0 / 8%); /* semi-transparent RGB */
+  --shadow: 0 2px 8px rgb(0 0 0 / 8%);
+  /* semi-transparent RGB */
   --content-width: 60rem;
   --section-space: clamp(1.25rem, 3vw, 2rem);
 }
 
 /* A6: border-box includes padding and border in the declared width. */
-*, *::before, *::after { box-sizing: border-box; }
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
-html { scroll-behavior: smooth; scroll-padding-top: 1rem; }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 1rem;
+}
 
 body {
   display: grid;
@@ -32,23 +42,62 @@ body {
   line-height: 1.5;
 }
 
-img { display: block; max-width: 100%; height: auto; }
-a { color: inherit; }
-button, input, select, textarea { font: inherit; }
-:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  color: inherit;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
 
 .skip-link {
-  position: absolute; z-index: 100; top: -5rem; left: 1rem;
-  padding: .65rem 1rem; color: var(--brand-dark);
-  background: var(--accent); border-radius: .35rem;
+  position: absolute;
+  z-index: 100;
+  top: -5rem;
+  left: 1rem;
+  padding: .65rem 1rem;
+  color: var(--brand-dark);
+  background: var(--accent);
+  border-radius: .35rem;
 }
-.skip-link:focus { top: 1rem; }
+
+.skip-link:focus {
+  top: 1rem;
+}
 
 /* A5: type scale and readable paragraph width. */
-h1 { font-size: clamp(1.75rem, 4vw, 3rem); line-height: 1.15; }
-h2 { font-size: clamp(1.35rem, 2.5vw, 1.8rem); line-height: 1.2; }
-h3 { font-size: 1.125rem; line-height: 1.3; }
-p { max-width: 65ch; }
+h1 {
+  font-size: clamp(1.75rem, 4vw, 3rem);
+  line-height: 1.15;
+}
+
+h2 {
+  font-size: clamp(1.35rem, 2.5vw, 1.8rem);
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 1.125rem;
+  line-height: 1.3;
+}
+
+p {
+  max-width: 65ch;
+}
 
 /* A4: relative units, calc(), and a centred capped container. */
 .page-width {
@@ -58,6 +107,13 @@ p { max-width: 65ch; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after { transition-duration: .01ms !important; }
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    transition-duration: .01ms !important;
+  }
 }

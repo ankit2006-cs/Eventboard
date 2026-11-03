@@ -63,6 +63,12 @@
             <input type="search" id="event-search" placeholder="Search by event title or venue..." autocomplete="off">
             <p id="event-status" role="status" aria-live="polite">Loading events...</p>
             <ul id="event-list" class="event-list" aria-label="Upcoming campus events"></ul>
+            <!-- B4: The first event title is also read from events.xml using DOMParser. -->
+            <section class="xml-preview" aria-labelledby="xml-preview-heading">
+                <h3 id="xml-preview-heading">XML Data Check</h3>
+                <p id="xml-title-status" role="status" aria-live="polite">Reading the first title from events.xml...</p>
+            </section>
+            <p id="data-size-status" class="data-size-status" role="status" aria-live="polite"></p>
             <h3>Event Schedule</h3>
             <div class="table-wrapper">
                 <table>
